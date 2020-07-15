@@ -66,7 +66,7 @@ endif()
 option(SPDLOG_BUILD_ALL "Build all artifacts" OFF)
 
 # build shared option
-option(SPDLOG_BUILD_SHARED "Build shared library" OFF)
+option(SPDLOG_BUILD_SHARED "Build shared library" ON)
 
 # precompiled headers option
 option(SPDLOG_ENABLE_PCH "Build static or shared library using precompiled header to speed up compilation time" OFF)
@@ -147,6 +147,9 @@ if(SPDLOG_BUILD_SHARED)
     target_compile_definitions(spdlog PUBLIC SPDLOG_SHARED_LIB)
     if(MSVC)
         target_compile_options(spdlog PUBLIC /wd4251 /wd4275)
+    elseif(UNIX) # UNIX, gcc
+        # force linker to resolve all deps
+        set_target_properties(spdlog PROPERTIES LINK_FLAGS "-Wl,--no-undefined")
     endif()
     if(NOT SPDLOG_FMT_EXTERNAL AND NOT SPDLOG_FMT_EXTERNAL_HO)
         target_compile_definitions(spdlog PRIVATE FMT_EXPORT PUBLIC FMT_SHARED)
