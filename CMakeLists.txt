@@ -2,6 +2,13 @@
 
 cmake_minimum_required(VERSION 3.2)
 
+###############
+# ASI default settings
+list(APPEND CMAKE_MODULE_PATH "$ENV{ASV_CMAKE}")
+include(asv_cmake_defaults)
+asv_cmake_defaults( )
+###############
+
 if(${CMAKE_VERSION} VERSION_LESS 3.11)
     cmake_policy(VERSION ${CMAKE_MAJOR_VERSION}.${CMAKE_MINOR_VERSION})
 else()
