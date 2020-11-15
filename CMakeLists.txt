@@ -2,13 +2,6 @@
 
 cmake_minimum_required(VERSION 3.2)
 
-###############
-# ASI default settings
-list(APPEND CMAKE_MODULE_PATH "$ENV{ASV_CMAKE}")
-include(asv_cmake_defaults)
-asv_cmake_defaults( )
-###############
-
 if(${CMAKE_VERSION} VERSION_LESS 3.11)
     cmake_policy(VERSION ${CMAKE_MAJOR_VERSION}.${CMAKE_MINOR_VERSION})
 else()
@@ -27,6 +20,13 @@ spdlog_extract_version()
 
 project(spdlog VERSION ${SPDLOG_VERSION} LANGUAGES CXX)
 message(STATUS "Build spdlog: ${SPDLOG_VERSION}")
+
+###############
+# ASI default settings
+list(APPEND CMAKE_MODULE_PATH "$ENV{ASV_CMAKE}")
+include(asv_cmake_defaults)
+asv_cmake_defaults( )
+###############
 
 include(GNUInstallDirs)
 
